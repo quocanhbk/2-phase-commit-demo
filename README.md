@@ -1,5 +1,7 @@
 # Distributed Systems - Two Phase Commit Protocol
 
+> _Disclaimer: This demo is intended only for educational and demonstration purposes. It is not meant for practical use and has not been tested for production environments_
+
 ## Definition
 
 The two-phase commit protocol (2PC) is a distributed algorithm used to ensure that all nodes in a distributed database system commit a transaction atomically. In a distributed database, data is spread across multiple nodes, and transactions may involve updating data on multiple nodes. The 2PC protocol helps to ensure that transactions involving multiple nodes are completed consistently, so that the system remains in a consistent state.

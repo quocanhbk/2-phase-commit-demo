@@ -1,6 +1,5 @@
 /**
  * @dev This is a demo of Two Phase Commit protocol.
- * @author quocanhbk17
  */
 
 import Logger from "./logger"
