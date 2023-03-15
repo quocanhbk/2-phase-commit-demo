@@ -1,0 +1,24 @@
+GET http://localhost:3000/account
+
+###
+
+# Get account by id
+GET http://localhost:3000/account/415ab2fa-4ad5-439e-bc38-e3fe2abcd788
+
+###
+
+# Create a new account
+POST http://localhost:3000/account
+Content-Type: application/json
+
+###
+
+# Update account balance
+PUT http://localhost:3000/account/415ab2fa-4ad5-439e-bc38-e3fe2abcd788
+Content-Type: application/json
+
+{
+    "balance": 1000
+}
+
+###

@@ -1,0 +1,28 @@
+version: "3"
+services:
+  cassandra-cluster-node-1:
+    image: cassandra:3.0
+    container_name: cassandra-cluster-node-1
+    hostname: cassandra-cluster-node-1
+    environment:
+      - "MAX_HEAP_SIZE=512M"
+      - "HEAP_NEWSIZE=256M"
+    ports:
+      - '9142:9042'
+      - '7199:7199'
+      - '9160:9160'
+
+  cassandra-cluster-node-2:
+    image: cassandra:3.0
+    container_name: cassandra-cluster-node-2
+    hostname: cassandra-cluster-node-2
+    environment:
+      - "MAX_HEAP_SIZE=512M"
+      - "HEAP_NEWSIZE=256M"
+      - "CASSANDRA_SEEDS=cassandra-cluster-node-1"
+    ports:
+      - '9242:9042'
+      - '7299:7199'
+      - '9260:9160'
+    depends_on:
+      - cassandra-cluster-node-1
