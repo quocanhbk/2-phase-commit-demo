@@ -56,37 +56,23 @@ The two-phase commit protocol is important for maintaining data consistency in a
 
 <br/>
 
-## What will committed nodes do when receive **ABORT** message?
-
-When a committed node receives an abort message in a two-phase commit protocol, it must undo the changes made by the transaction and roll back to the previous state of the database.
-
-This is necessary to ensure that the database remains in a consistent state, as all nodes involved in the transaction must agree on the final outcome. If a node has committed the transaction but then receives an abort message, it must roll back to the previous state to ensure that it is consistent with the other nodes in the system.
-
-The rollback process typically involves undoing the changes made by the transaction and restoring the database to its previous state. This may involve undoing changes made to multiple tables or records, depending on the complexity of the transaction.
-
-In some cases, rolling back a committed transaction may result in data inconsistencies or conflicts with other transactions that have been executed since the original transaction. In such cases, it may be necessary to perform additional corrective actions to resolve the conflicts and restore the database to a consistent state.
-
-Overall, it is important to ensure that all nodes involved in a distributed transaction agree on the final outcome to ensure that the database remains consistent and that data integrity is maintained.
-
-<br/>
-
 ## To run the demo
 
-- Install Yarn by following the installation instructions on the [Yarn website](https://classic.yarnpkg.com/en/docs/install).
+1. Install Yarn by following the installation instructions on the [Yarn website](https://classic.yarnpkg.com/en/docs/install).
 
-- Install dependencies by running the following command in the terminal:
+2. Install dependencies by running the following command in the terminal:
 
 ```bash
 yarn install
 ```
 
-- Once the dependencies are installed, run the code using the following command:
+3. Once the dependencies are installed, run the code using the following command:
 
 ```bash
 yarn start
 ```
 
-- This will start the program and execute the code.
+This will start the program and execute the code.
 
 ### There will be 3 common cases that will happen in the demo.
 
@@ -106,7 +92,7 @@ Based on the case number, the code will tweak the behavior of the nodes to simul
 
 **When a transaction is committed successfully**
 
-```bash
+<pre style="color: #50FA7B">
 [COORDINATOR] Sending prepare request to all nodes...
 [NODE 1] Preparing transaction T1
 [NODE 1] Node 1 is ready to commit transaction T1
@@ -118,22 +104,22 @@ Based on the case number, the code will tweak the behavior of the nodes to simul
 [NODE 2] Committing transaction T1
 [NODE 2] Node 2 committed transaction T1 successfully
 [COORDINATOR] Transaction T1 committed successfully
-```
+</pre>
 
 **When a transaction is aborted due to NODE 2 failure to prepare**
 
-```bash
+<pre style="color: #50FA7B">
 [COORDINATOR] Sending prepare request to all nodes...
 [NODE 1] Preparing transaction T1
 [NODE 1] Node 1 is ready to commit transaction T1
 [NODE 2] Preparing transaction T1
-[NODE 2] Node 2 is not ready to commit transaction T1
-[COORDINATOR] One or more nodes failed to prepare transaction T1. Transaction aborted.
-```
+<span style="color: #FF5555">[NODE 2] Node 2 is not ready to commit transaction T1</span>
+<span style="color: #FF5555">[COORDINATOR] One or more nodes failed to prepare transaction T1. Transaction aborted.</span>
+</pre>
 
 **When a transaction is aborted and rolled back due to NODE 2 failure to commit**
 
-```bash
+<pre style="color: #50FA7B;">
 [COORDINATOR] Sending prepare request to all nodes...
 [NODE 1] Preparing transaction T1
 [NODE 1] Node 1 is ready to commit transaction T1
@@ -143,11 +129,11 @@ Based on the case number, the code will tweak the behavior of the nodes to simul
 [NODE 1] Committing transaction T1
 [NODE 1] Node 1 committed transaction T1 successfully
 [NODE 2] Committing transaction T1
-[NODE 2] Node 2 failed to commit transaction T1
-[COORDINATOR] One or more nodes failed to commit transaction T1. Rolling back...
+<span style="color: #FF5555">[NODE 2] Node 2 failed to commit transaction T1</span>
+<span style="color: #FF5555">[COORDINATOR] One or more nodes failed to commit transaction T1. Rolling back...</span>
 [NODE 1] Rolling back transaction T1
-[COORDINATOR] Transaction T1 failed to commit
-```
+<span style="color: #FF5555">[COORDINATOR] Transaction T1 failed to commit</span>
+</pre>
 
 <br/>
 
