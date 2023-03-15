@@ -7,10 +7,15 @@ import Logger from "./logger"
 
 import yargs from "yargs"
 
-const caseValue = parseInt(yargs.argv["case"] ?? "1")
+const caseValue = yargs.argv["case"] ? parseInt(yargs.argv["case"]) : undefined
 
-const tweakPrepareAndCommitProbability = (caseValue: number) => {
+const tweakPrepareAndCommitProbability = (caseValue: number | undefined) => {
   switch (caseValue) {
+    case 1:
+      return {
+        prepareProbability: 0.999,
+        commitProbability: 0.999,
+      }
     case 2:
       return {
         prepareProbability: 0.1,
@@ -23,8 +28,8 @@ const tweakPrepareAndCommitProbability = (caseValue: number) => {
       }
     default:
       return {
-        prepareProbability: 0.999,
-        commitProbability: 0.999,
+        prepareProbability: 0.8,
+        commitProbability: 0.8,
       }
   }
 }
@@ -34,7 +39,6 @@ const { prepareProbability, commitProbability } = tweakPrepareAndCommitProbabili
 // Define a Transaction interface
 interface Transaction {
   id: string
-  data: Record<string, any>
 }
 
 // Define a Node interface
@@ -196,10 +200,6 @@ async function main() {
 
   const transaction1: Transaction = {
     id: "T1",
-    data: {
-      name: "Arthur Callahan",
-      age: 38,
-    },
   }
 
   coordinator.beginTwoPhaseCommit(transaction1)

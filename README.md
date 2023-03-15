@@ -40,7 +40,7 @@ The two-phase commit protocol is important for maintaining data consistency in a
 
 <br/>
 
-## What does each node do when receive **ABORT** message?
+## What does each node do when it receives an **ABORT** message?
 
 **1. Rollbacks the transaction:** The node rolls back the transaction by undoing any updates that were made by the transaction and releasing the locks on the data that it holds. This ensures that the database is returned to the state it was in before the transaction began.
 
@@ -98,9 +98,11 @@ You can pass in the following arguments to the program to change the behavior of
 
 Based on the case number, the code will tweak the behavior of the nodes to simulate the failure of one or more nodes. For example, if you pass in `--case 2`, the code will simulate a failure in the prepare phase by causing one of the nodes to fail to prepare the transaction.
 
+<br/>
+
 ## Demo Console Output
 
-**When transaction is committed successfully**
+**When a transaction is committed successfully**
 
 ```bash
 [COORDINATOR] Sending prepare request to all nodes...
@@ -116,7 +118,7 @@ Based on the case number, the code will tweak the behavior of the nodes to simul
 [COORDINATOR] Transaction T1 committed successfully
 ```
 
-**When transaction is aborted due to NODE 2 failure to prepare**
+**When a transaction is aborted due to NODE 2 failure to prepare**
 
 ```bash
 [COORDINATOR] Sending prepare request to all nodes...
@@ -127,7 +129,7 @@ Based on the case number, the code will tweak the behavior of the nodes to simul
 [COORDINATOR] One or more nodes failed to prepare transaction T1. Transaction aborted.
 ```
 
-**When transaction is aborted and rolled back due to NODE 2 failure to commit**
+**When a transaction is aborted and rolled back due to NODE 2 failure to commit**
 
 ```bash
 [COORDINATOR] Sending prepare request to all nodes...
@@ -144,3 +146,13 @@ Based on the case number, the code will tweak the behavior of the nodes to simul
 [NODE 1] Rolling back transaction T1
 [COORDINATOR] Transaction T1 failed to commit
 ```
+
+<br/>
+
+## Extend this demo
+
+To extend this demo, you can:
+
+- Add more nodes to the system to observe how transactions are handled when multiple nodes are involved.
+- Interact with real databases to test the system's functionality in a practical setting.
+- Implement multiple coordinators to improve the system's performance and scalability.
